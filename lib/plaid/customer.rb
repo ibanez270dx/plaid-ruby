@@ -28,6 +28,11 @@ module Plaid
       return parse_response(@response,3)
     end
 
+    def get_all(access_token)
+      get('/connect', access_token)
+      @response.code==200 ? JSON.parse(@response) : @response
+    end
+
     protected
 
     def parse_response(response,method)
