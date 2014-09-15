@@ -12,8 +12,7 @@ module Plaid
 
     def add_account(type,username,password,email)
       post('/connect',type,username,password,email)
-      # return parse_response(@response)
-      @response.code==200 ? JSON.parse(@response) : @response
+      return parse_response(@response)
     end
 
     def get_place(id)
@@ -39,7 +38,7 @@ module Plaid
         @parsed_response = Hash.new
         @parsed_response[:type] = response["type"]
         @parsed_response[:access_token] = response["access_token"]
-        @parsed_response[:mfa_info] = response["mfa_info"]
+        @parsed_response[:mfa] = response["mfa"]
         return @parsed_response
       else
         @parsed_response = Hash.new
