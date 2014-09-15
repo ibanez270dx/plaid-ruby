@@ -19,6 +19,12 @@ module Plaid
       get('/entity',id)
       return parse_place(@response)
     end
+
+    def get_institutions
+      get('/institutions')
+      JSON.parse(@response || {})
+    end
+
     protected
 
     def parse_response(response)
