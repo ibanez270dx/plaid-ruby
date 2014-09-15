@@ -21,7 +21,7 @@ module Plaid
     end
 
     def get_institutions
-      get('/institutions')
+      get('/institutions', )
       JSON.parse(@response || {})
     end
 
@@ -74,11 +74,17 @@ module Plaid
       return @response
     end
 
-    def get(path,id)
+    def get(path,id=nil)
       url = BASE_URL + path
-      @response = RestClient.get(url,:params => {:entity_id => id})
+      @response = if id.present?
+        RestClient.get(url,:params => {:entity_id => id})
+      else
+        RestClient.get(url)
+      end
       return @response
     end
+
+
 
   end
 end
