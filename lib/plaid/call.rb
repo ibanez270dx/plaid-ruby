@@ -15,6 +15,12 @@ module Plaid
       return parse_response(@response)
     end
 
+    def connect(options={})
+      params = { client_id: self.instance_variable_get(:'@customer_id'), secret: self.instance_variable_get(:'@secret') }.merge(options)
+      @response = RestClient.post "#{BASE_URL}/connect", params
+      return @response
+    end
+
     def get_place(id)
       get('/entity',id)
       return parse_place(@response)
